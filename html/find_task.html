@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0,
+        maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="icon" href="../img/logo_rounded.png">
+    <title data-i18n-key="find-task">Find task</title>
+</head>
+<header class="fixed__header">
+    <div class="container">
+        <div class="navigation__and__logo">
+            <div class="nav__items">
+                <a href="/index.html">
+                    <div class="logo__group">
+                        <img src="/img/logo.jpeg" alt="logo"
+                             class="logo__small">
+                        <div class="logo__text">MarksUp</div>
+                    </div>
+                </a>
+                <a href="/html/find_task.html">
+                    <div data-i18n-key="find-a-task"
+                         class="nav__item__text selected__nav__item__text">Find
+                        a task
+                    </div>
+                </a>
+                <a href="create_task_1.html">
+                    <div data-i18n-key="create-a-task" class="nav__item__text">
+                        Create a task
+                    </div>
+                </a>
+                <a href="/html/my_tasks.html">
+                    <div data-i18n-key="my-tasks" class="nav__item__text">My
+                        tasks
+                    </div>
+                </a>
+                <a href="/html/deals.html">
+                    <div data-i18n-key="deals" class="nav__item__text">Deals
+                    </div>
+                </a>
+                <a href="/html/my_profile.html">
+                    <div class="nav__item__with__photo">
+                        <img class="user__photo_round"
+                             src="/img/user_pic_null.png"
+                             alt="profile photo" id="profilePhoto">
+                        <div data-i18n-key="profile" class="nav__item__text">
+                            Profile
+                        </div>
+                    </div>
+                </a>
+                <a onclick="myAlertWithBtns(localStorage.getItem('language')
+                === 'en' ? 'Are you sure you want to log out?' :
+                'Вы уверены, что хотите выйти?',
+                function () {
+                    let language = localStorage.getItem('language');
+                    localStorage.clear();
+                    localStorage.setItem('language', language);
+                    window.open('/html/login.html', '_self');
+                })">
+                    <img class="logout" src="/img/logout.png" alt="logout">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="line__black"></div>
+    <form class="filter_form" id="filterForm">
+        <div class="form-group">
+            <label data-i18n-key="educational-institution"
+                   for="edInstFilterSelect"
+                   class="input__label">Educational institution</label>
+            <select class="select-control"
+                    id="edInstFilterSelect">
+                <option data-i18n-key="university" value="University"
+                        selected>University
+                </option>
+                <option data-i18n-key="school" value="School">School</option>
+                <option data-i18n-key="other" value="Other">Other</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label data-i18n-key="type-of-help" for="taskTypeFilterSelect"
+                   class="input__label">Type of help</label>
+            <select class="select-control" id="taskTypeFilterSelect">
+                <option data-i18n-key="specific-task" value="Specific task"
+                        selected>Specific task
+                </option>
+                <option data-i18n-key="full-topic" value="Full topic">Full
+                    topic
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label data-i18n-key="deadline-from" for="deadlineFromFilterInput"
+                   class="input__label">Deadline from
+            </label>
+            <input type="date"
+                   class="deadline__form-control__filter form-control__filter"
+                   id="deadlineFromFilterInput">
+        </div>
+        <div class="form-group">
+            <label data-i18n-key="deadline-to" for="deadlineToFilterInput"
+                   class="input__label">Deadline to
+            </label>
+            <input type="date"
+                   class="deadline__form-control__filter form-control__filter"
+                   id="deadlineToFilterInput">
+        </div>
+        <div class="form-group">
+            <label data-i18n-key="price-from" for="priceFromFilterInput"
+                   class="input__label">Price from (₽)</label>
+            <input type="number" class="form-control__filter"
+                   id="priceFromFilterInput"
+                   placeholder="0">
+        </div>
+        <div class="form-group">
+            <label data-i18n-key="price-to" for="priceToFilterInput"
+                   class="input__label">Price to (₽)</label>
+            <input type="number" class="form-control__filter"
+                   id="priceToFilterInput"
+                   placeholder="1500">
+        </div>
+        <div class="filter__buttons__row">
+            <button type="submit" class="btn__filter">
+                <img src="/img/filter.png" alt="Filter">
+            </button>
+            <button type="button" class="btn__filter" id="resetBtn">
+                <img src="/img/reset.png" alt="Reset">
+            </button>
+        </div>
+    </form>
+    <div class="line__gray"></div>
+</header>
+<body>
+<div class="container" id="container">
+    <div class="found__tasks" id="foundTasks"></div>
+</div>
+<script src="/js/alert.js"></script>
+<script src="/js/set_menu_profile_picture.js"></script>
+<script src="/js/localization.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="/js/find_task.js"></script>
+</body>
+</html>
